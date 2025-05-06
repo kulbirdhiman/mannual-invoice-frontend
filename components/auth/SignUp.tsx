@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 const Register = () => {
@@ -23,8 +24,10 @@ const Register = () => {
     <div className="min-h-screen flex">
       {/* Left Image */}
       <div className="hidden md:flex w-1/2 bg-gray-100 items-center justify-center">
-        <img
-          src="/register-side.jpg" // Update with your image path
+        <Image
+        height={800}
+        width={800}
+          src="/auth.png" // Update with your image path
           alt="Register"
           className="w-3/4 h-auto object-contain"
         />

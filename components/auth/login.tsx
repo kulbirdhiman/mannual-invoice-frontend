@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 const LoginPage = () => {
@@ -21,8 +22,10 @@ const LoginPage = () => {
     <div className="min-h-screen flex bg-gray-900 text-white">
       {/* Left Image */}
       <div className="hidden md:flex w-1/2 items-center justify-center bg-gray-800">
-        <img
-          src="/login-side.jpg" // Replace with your image path
+        <Image
+          height={800}
+          width={800}
+          src="/auth.png" // Replace with your image path
           alt="Login"
           className="w-full h-auto object-cover"
         />
@@ -31,7 +34,9 @@ const LoginPage = () => {
       {/* Right Form */}
       <div className="flex w-full md:w-1/2 items-center justify-center p-8 bg-black">
         <div className="w-full max-w-md">
-          <h2 className="text-3xl font-bold mb-6 text-center text-white">Login</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center text-white">
+            Login
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-2">
             {/* Email Input */}
             <div className="my-2">
@@ -45,7 +50,7 @@ const LoginPage = () => {
                 required
               />
             </div>
-            
+
             {/* Password Input */}
             <div>
               <input
@@ -61,7 +66,10 @@ const LoginPage = () => {
 
             {/* Forgot Password Link */}
             <div className="text-right mt-2">
-              <a href="/forgot-password" className="text-blue-400 hover:underline text-sm">
+              <a
+                href="/forgot-password"
+                className="text-blue-400 hover:underline text-sm"
+              >
                 Forgot Password?
               </a>
             </div>
