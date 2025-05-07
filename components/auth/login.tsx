@@ -1,7 +1,16 @@
 "use client";
-
 import Image from "next/image";
 import { useState } from "react";
+import { useLoginMutation } from "@/store/api/userApi";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import {  toast } from 'react-hot-toast'; // Import toast
+interface ApiError {
+  status: number;
+  data: {
+    message: string;
+  };
+}
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -12,10 +21,18 @@ const LoginPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const [login , {isLoading}] = useLoginMutation();
+  const router = useRouter()
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData); // Replace with your API call
+    try {
+      await login(formData).unwrap();
+      toast.success("User login successfully!");
+      router.push("/")
+    } catch (error) {
+      const err = error as ApiError;
+      toast.error(err.data?.message || "Something went wrong");
+    } // Replace with your API call
   };
 
   return (
@@ -79,7 +96,7 @@ const LoginPage = () => {
               type="submit"
               className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors duration-300"
             >
-              Login
+              { isLoading?"loading":"Login"}
             </button>
           </form>
 
@@ -87,9 +104,9 @@ const LoginPage = () => {
           <div className="mt-4 text-center">
             <p className="text-gray-400">
               Don't have an account?{" "}
-              <a href="/register" className="text-blue-400 hover:underline">
+              <Link href="/register" className="text-blue-400 hover:underline">
                 Create one here
-              </a>
+              </Link>
             </p>
           </div>
         </div>

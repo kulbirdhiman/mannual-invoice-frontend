@@ -1,8 +1,9 @@
 "use client";
-
 import Image from "next/image";
 import { useState } from "react";
-
+import {useCreateUserMutation} from "@/store/api/userApi";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,14 +11,20 @@ const Register = () => {
     password: "",
     role: "client",
   });
-
+  const [createUser , {isLoading}] = useCreateUserMutation();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = (e: React.FormEvent) => {
+   const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData); // Replace with API call
+    try {
+       await  createUser(formData).unwrap();
+       toast.success("User registered successfully!");
+      router.push("/");
+    } catch (error) {
+      console.log(error); 
+    }
   };
 
   return (
@@ -29,7 +36,7 @@ const Register = () => {
         width={800}
           src="/auth.png" // Update with your image path
           alt="Register"
-          className="w-3/4 h-auto object-contain"
+          className="w-3/4 h-auto object-cover"
         />
       </div>
 
@@ -77,7 +84,7 @@ const Register = () => {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
             >
-              Register
+              { isLoading ? "Loading.." :"Register"}
             </button>
           </form>
         </div>
