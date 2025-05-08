@@ -7,7 +7,9 @@ interface User {
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: API_URl }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URl ,
+    credentials:"include"
+  }),
   endpoints: (builder) => ({}),
 });
 
