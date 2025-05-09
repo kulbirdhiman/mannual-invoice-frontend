@@ -1,39 +1,22 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import AddUserModal from '@/components/users/AddUserModel'; // Import the AddUserModal
-
+import { useGetallcustmourQuery } from '@/store/api/custmourApi';
 // Define user type
 interface User {
-  id: number;
+  _id: number;
   name: string;
   email: string;
-  status: string;
+  phone: string;
 }
 
 const UserPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { data, error, isLoading } = useGetallcustmourQuery({});
+  console.log(data)
+ 
 
-  useEffect(() => {
-    // Simulating fetching users from an API or database
-    setTimeout(() => {
-      setUsers([
-        { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
-        { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive' },
-        // Add more users as needed
-      ]);
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  const handleAddUser = (data: { name: string; email: string; status: string }) => {
-    const newUser = {
-      id: users.length + 1,
-      ...data,
-    };
-    setUsers([...users, newUser]); // Add the new user to the list
-  };
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -43,7 +26,7 @@ const UserPage: React.FC = () => {
     setShowModal(false);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -70,11 +53,11 @@ const UserPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr key={user.id} className="hover:bg-gray-700 transition">
+          {data.map((user:User) => (
+            <tr key={user._id} className="hover:bg-gray-700 transition">
               <td className="px-4 py-2 border border-gray-600">{user.name}</td>
               <td className="px-4 py-2 border border-gray-600">{user.email}</td>
-              <td className="px-4 py-2 border border-gray-600">{user.status}</td>
+              <td className="px-4 py-2 border border-gray-600">{user.phone}</td>
               <td className="px-4 py-2 border border-gray-600">
                 <button className="bg-yellow-500 text-white p-2 rounded mr-2 hover:bg-yellow-600 transition">
                   Edit

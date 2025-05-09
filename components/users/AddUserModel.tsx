@@ -23,7 +23,8 @@ const [createcustome , {isLoading}] = useCreatecustomerMutation();
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     try {
-        await createcustome(formData).unwrap()
+    const res = await createcustome(formData).unwrap()
+    console.log(res)
         onClose(); 
     } catch (error) {
         console.log(error)

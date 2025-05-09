@@ -9,8 +9,14 @@ const custmourApi = apiSlice.injectEndpoints({
         method: "post",
       }),
     }),
+    getallcustmour : builder.query({
+      query :()=>({
+        url : CUSTMOURr_URl,
+        method: "get",
+      })
+    }),
   }),
 });
 
 
-export const {useCreatecustomerMutation} = custmourApi
+export const {useCreatecustomerMutation , useGetallcustmourQuery} = custmourApi
