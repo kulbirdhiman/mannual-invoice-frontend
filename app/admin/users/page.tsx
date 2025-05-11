@@ -11,13 +11,8 @@ interface User {
 }
 
 const UserPage: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const { data, error, isLoading } = useGetallcustmourQuery({});
-  console.log(data)
- 
-
-
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -53,7 +48,7 @@ const UserPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((user:User) => (
+          {data?.map((user:User) => (
             <tr key={user._id} className="hover:bg-gray-700 transition">
               <td className="px-4 py-2 border border-gray-600">{user.name}</td>
               <td className="px-4 py-2 border border-gray-600">{user.email}</td>

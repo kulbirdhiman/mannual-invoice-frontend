@@ -32,7 +32,10 @@ const menu = [
     ],
   },
   { label: 'Users', path: '/admin/users', icon: Users },
-  { label: 'Templates', path: '/admin/templates', icon: FilePlus2 },
+  { label: 'Product', path: '/admin/templates', icon: FilePlus2 ,children: [
+    { label: 'Create Product', path: '/admin/product/create', icon: PlusCircle },
+    { label: 'View Product', path: '/admin/invoices', icon: FileText },
+  ],},
   { label: 'Reports', path: '/admin/reports', icon: BarChart2 },
   { label: 'Notifications', path: '/admin/notifications', icon: Bell },
   { label: 'Settings', path: '/admin/settings', icon: Settings },
